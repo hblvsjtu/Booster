@@ -54,7 +54,7 @@ function dir(myPath) {
 
 module.exports = {
     entry: {
-        EFEProj: "./src/main.js",
+        booster: "./src/main.js",
     },
     output: {
         filename: "[name].[hash].js",
@@ -71,11 +71,6 @@ module.exports = {
                     formatter: require("eslint-friendly-formatter"),
                     fix: true,
                 },
-            },
-            {
-                test: /test\.js$/,
-                use: "mocha-loader",
-                exclude: /node_modules/,
             },
             {
                 test: /\.js$/,
