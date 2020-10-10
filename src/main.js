@@ -8,7 +8,7 @@ import { join } from "lodash-es";
 import "./style/index.less";
 
 const component = () => {
-    var element = document.createElement("div");
+    const element = document.createElement("div");
     element.id = "hello";
     element.innerHTML = join(["Hello", "webpack"], " ");
     return element;
