@@ -4,13 +4,13 @@
  * @date    2019-11-24 15:21:01
  * @version 0.0.1
  */
-import { join } from "lodash-es";
-import "./style/index.less";
+import {join} from 'lodash-es';
+import './style/index.less';
 
 const component = () => {
-    const element = document.createElement("div");
-    element.id = "hello";
-    element.innerHTML = join(["Hello", "webpack"], " ");
+    const element = document.createElement('div');
+    element.id = 'hello';
+    element.innerHTML = join(['Hello', 'webpack'], ' ');
     return element;
 };
 
