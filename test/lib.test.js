@@ -5,13 +5,14 @@
  * @version 0.0.1
  */
 
-const assert = require("assert");
-const { add } = require("../src/lib/utils");
+import add from '../src/lib/utils';
+
+const assert = require('assert');
 
 /* eslint-disable */
-describe("#utils.js", () => {
-    describe("#sum()", () => {
-        it("add(0) should return 1", () => {
+describe('#utils.js', () => {
+    describe('#sum()', () => {
+        it('add(0) should return 1', () => {
             assert.strictEqual(add(0), 1);
         });
     });

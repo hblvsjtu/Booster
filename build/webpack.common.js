@@ -5,20 +5,20 @@
  * @version 1.0.0
  */
 
-const webpack = require("webpack");
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const config = require("../config/index");
+const webpack = require('webpack');
+const path = require('path');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const config = require('../config/index');
 const plugins = [
-    new webpack.BannerPlugin("版权所有，翻版必究"),
+    new webpack.BannerPlugin('版权所有，翻版必究'),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: "index.html",
-        inject: "body",
+        filename: 'index.html',
+        template: 'index.html',
+        inject: 'body',
     }),
 ];
 
@@ -38,37 +38,38 @@ if (config.isSplitCSS) {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: "[name].[hash].css",
-            chunkFilename: "[id].css",
+            filename: '[name].[hash].css',
+            chunkFilename: '[id].css',
         })
     );
 }
 
 function dir(myPath) {
     if (myPath) {
-        return path.resolve(__dirname, "../", myPath);
+        return path.resolve(__dirname, '../', myPath);
     } else {
-        return path.resolve(__dirname, "../");
+        return path.resolve(__dirname, '../');
     }
 }
 
 module.exports = {
     entry: {
-        booster: "./src/main.js",
+        booster: './src/main.js',
     },
     output: {
-        filename: "[name].[hash].js",
-        path: dir("dist"),
+        filename: '[name].[hash].js',
+        path: dir('dist'),
+        ...(config.libraryOptions || {}),
     },
     module: {
         rules: [
             {
-                enforce: "pre",
+                enforce: 'pre',
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: "eslint-loader",
+                loader: 'eslint-loader',
                 options: {
-                    formatter: require("eslint-friendly-formatter"),
+                    formatter: require('eslint-friendly-formatter'),
                     fix: true,
                 },
             },
@@ -76,9 +77,9 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: "babel-loader",
+                    loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-env"],
+                        presets: ['@babel/preset-env'],
                     },
                 },
             },
@@ -87,8 +88,8 @@ module.exports = {
                 use: [
                     config.isSplitCSS
                         ? MiniCssExtractPlugin.loader
-                        : "style-loader",
-                    "css-loader",
+                        : 'style-loader',
+                    'css-loader',
                 ],
             },
             {
@@ -97,9 +98,9 @@ module.exports = {
                 use: [
                     config.isSplitCSS
                         ? MiniCssExtractPlugin.loader
-                        : "style-loader",
-                    "css-loader",
-                    "less-loader",
+                        : 'style-loader',
+                    'css-loader',
+                    'less-loader',
                 ],
             },
             {
@@ -107,7 +108,7 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 use: [
                     {
-                        loader: "file-loader",
+                        loader: 'file-loader',
                         options: {},
                     },
                 ],
