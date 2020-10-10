@@ -5,7 +5,6 @@
  * @version 0.0.1
  */
 import {join} from 'lodash-es';
-import './style/index.less';
 
 const component = () => {
     const element = document.createElement('div');
@@ -15,3 +14,5 @@ const component = () => {
 };
 
 document.body.appendChild(component());
+
+export default component;
