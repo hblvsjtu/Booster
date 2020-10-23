@@ -19,8 +19,9 @@ module.exports = {
             modules: false,
             colors: true,
         },
-        hotOnly: true,
-        https: true,
+        hot: true,
+        // https: true,
+        open: true,
         publicPath: '/',
         headers: {
             Origin: '',
@@ -30,7 +31,7 @@ module.exports = {
                 target: 'http://localhost:3000', // 接口的域名 10.107.137.51
                 secure: false, // 如果是https接口，需要配置这个参数
                 changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
-                bypass: function (req, res, proxyOptions) {
+                bypass(req, res, proxyOptions) {
                     // if (req.headers.origin === '') {
                     console.log('Skipping proxy for browser request.');
                     // return "/index.html";

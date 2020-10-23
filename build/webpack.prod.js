@@ -5,16 +5,17 @@
  * @version 1.0.0
  */
 
-const webpack = require("webpack");
-const merge = require("webpack-merge");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const common = require("./webpack.common.js");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const common = require('./webpack.common.js');
+
 const isShowBundleAnalyzer = false; // 是否加入打包的依赖分析
 
 const plugins = [
     new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production"),
+        'process.env.NODE_ENV': JSON.stringify('production'),
     }),
 ];
 
@@ -23,31 +24,30 @@ if (isShowBundleAnalyzer) {
 }
 
 module.exports = merge(common, {
-    mode: "production",
-    devtool: "source-map",
+    mode: 'production',
     plugins,
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 test: /\.js$/,
-                chunkFilter: (chunk) => chunk.name !== "vendor",
+                chunkFilter: (chunk) => chunk.name !== 'vendor',
                 parallel: true,
                 sourceMap: true,
                 cache: true,
             }),
         ],
         splitChunks: {
-            chunks: "all",
+            chunks: 'all',
             cacheGroups: {
                 vender: {
-                    name: "vender",
+                    name: 'vender',
                     priority: 1,
                     test: /node_modules/,
                     minSize: 0,
                     minChunks: 1,
                 },
                 common: {
-                    name: "common",
+                    name: 'common',
                     priority: 0,
                     minSize: 0,
                     minChunks: 2,

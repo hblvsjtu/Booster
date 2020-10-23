@@ -19,6 +19,5 @@ document.body.appendChild(component());
 export default class MyModele {
     constructor(a) {
         this.a = a;
-        console.log('this.a = ', this.a);
     }
 }

@@ -11,7 +11,9 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FriendlyFormatter = require('eslint-friendly-formatter');
 const config = require('../config/index');
+
 const plugins = [
     new webpack.BannerPlugin('版权所有，翻版必究'),
     new CleanWebpackPlugin(),
@@ -45,11 +47,9 @@ if (config.isSplitCSS) {
 }
 
 function dir(myPath) {
-    if (myPath) {
-        return path.resolve(__dirname, '../', myPath);
-    } else {
-        return path.resolve(__dirname, '../');
-    }
+    return myPath
+        ? path.resolve(__dirname, '../', myPath)
+        : path.resolve(__dirname, '../');
 }
 
 module.exports = {
@@ -61,6 +61,9 @@ module.exports = {
         path: dir('dist'),
         ...(config.libraryOptions || {}),
     },
+    resolve: {
+        mainFields: ['jsnext:main', 'browser', 'main'],
+    },
     module: {
         rules: [
             {
@@ -69,7 +72,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'eslint-loader',
                 options: {
-                    formatter: require('eslint-friendly-formatter'),
+                    formatter: FriendlyFormatter,
                     fix: true,
                 },
             },
