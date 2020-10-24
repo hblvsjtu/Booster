@@ -12,6 +12,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const config = require('../config/index');
+
 const plugins = [
     new webpack.BannerPlugin('版权所有，翻版必究'),
     new CleanWebpackPlugin(),
@@ -47,19 +48,26 @@ if (config.isSplitCSS) {
 function dir(myPath) {
     if (myPath) {
         return path.resolve(__dirname, '../', myPath);
-    } else {
-        return path.resolve(__dirname, '../');
     }
+    return path.resolve(__dirname, '../');
 }
 
 module.exports = {
     entry: {
-        booster: './src/main.js',
+        booster: path.join(config.srcPath, 'main.js'),
     },
     output: {
         filename: '[name].[hash].js',
         path: dir('dist'),
         ...(config.libraryOptions || {}),
+    },
+    resolve: {
+        // 针对 Npm 中的第三方模块优先采用 jsnext:main 中指向的 ES6 模块化语法的文件
+        mainFields: ['jsnext:main', 'browser', 'main'],
+        extensions: ['.js', '.jsx'],
+        alias: {
+            components: path.resolve(__dirname, 'src/components/'),
+        },
     },
     module: {
         rules: [
@@ -74,7 +82,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
