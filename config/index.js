@@ -50,4 +50,5 @@ module.exports = {
         libraryExport: 'default',
         libraryTarget: 'umd',
     },
+    isShowBundleAnalyzer: false,
 };

@@ -10,8 +10,7 @@ const merge = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const common = require('./webpack.common.js');
-
-const isShowBundleAnalyzer = false; // 是否加入打包的依赖分析
+const {isShowBundleAnalyzer} = require('../config/index'); // 是否加入打包的依赖分析
 
 const plugins = [
     new webpack.DefinePlugin({

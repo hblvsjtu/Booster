@@ -5,7 +5,10 @@
  * @version 0.0.1
  */
 
+import Vue from 'vue';
 import VueRouter from 'vue-router';
+
+Vue.use(VueRouter); // 现在，应用已经启动了！
 
 // 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
 
@@ -25,16 +28,6 @@ const routes = [
         path: '/list',
         component: () =>
             import(/* webpackChunkName: "List" */ '../components/List.vue'),
-    },
-    {
-        path: '/bar1',
-        component: () =>
-            import(/* webpackChunkName: "Bar1" */ '../components/Bar1.vue'),
-    },
-    {
-        path: '/bar2',
-        component: () =>
-            import(/* webpackChunkName: "Bar2" */ '../components/Bar2.vue'),
     },
     {
         path: '/bar',

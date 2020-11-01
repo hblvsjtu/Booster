@@ -69,7 +69,7 @@ module.exports = {
         mainFields: ['jsnext:main', 'browser', 'main'],
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            vue$: 'vue/dist/vue.esm.js',
+            // vue$: 'vue/dist/vue.min.js',
             '@': dir('src'),
         },
         symlinks: false,
