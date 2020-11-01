@@ -1,7 +1,7 @@
 {
     "presets": [
         [
-            "@babel/preset-env",
+            "@vue/app",
             {
                 "useBuiltIns": "usage",
                 "corejs": 3 // 指定 runtime-corejs 的版本，目前有 2 3 两个版本
@@ -9,6 +9,7 @@
         ]
     ],
     "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
         [
             "@babel/plugin-transform-runtime",
             {

@@ -7,7 +7,7 @@
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const common = require('./webpack.common.js');
 
@@ -27,10 +27,10 @@ module.exports = merge(common, {
     mode: 'production',
     plugins,
     optimization: {
+        minimize: true,
         minimizer: [
-            new UglifyJsPlugin({
-                test: /\.js$/,
-                chunkFilter: (chunk) => chunk.name !== 'vendor',
+            new TerserPlugin({
+                test: /\.js(\?.*)?$/i,
                 parallel: true,
                 sourceMap: true,
                 cache: true,
@@ -45,12 +45,6 @@ module.exports = merge(common, {
                     test: /node_modules/,
                     minSize: 0,
                     minChunks: 1,
-                },
-                common: {
-                    name: 'common',
-                    priority: 0,
-                    minSize: 0,
-                    minChunks: 2,
                 },
             },
         },

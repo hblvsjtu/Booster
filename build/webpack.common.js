@@ -13,6 +13,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyFormatter = require('eslint-friendly-formatter');
 const config = require('../config/index');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const plugins = [
     new webpack.BannerPlugin('版权所有，翻版必究'),
@@ -22,6 +23,7 @@ const plugins = [
         template: 'index.html',
         inject: 'body',
     }),
+    new VueLoaderPlugin(),
 ];
 
 if (config.staticAssertsPath.from) {
@@ -41,7 +43,7 @@ if (config.isSplitCSS) {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: '[name].[hash].css',
-            chunkFilename: '[id].css',
+            chunkFilename: '[name].[hash].chunk.css',
         })
     );
 }
@@ -58,11 +60,19 @@ module.exports = {
     },
     output: {
         filename: '[name].[hash].js',
+        chunkFilename: '[name].[hash].chunk.js',
         path: dir('dist'),
         ...(config.libraryOptions || {}),
     },
     resolve: {
+        // 给vue模板的提供编译支持
         mainFields: ['jsnext:main', 'browser', 'main'],
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            vue$: 'vue/dist/vue.esm.js',
+            '@': dir('src'),
+        },
+        symlinks: false,
     },
     module: {
         rules: [
@@ -75,6 +85,10 @@ module.exports = {
                     formatter: FriendlyFormatter,
                     fix: true,
                 },
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
             },
             {
                 test: /\.js$/,

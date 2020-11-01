@@ -45,9 +45,9 @@ module.exports = {
         to: '',
     },
     isSplitCSS: true,
-    // libraryOptions: {
-    //     library: "MyLibrary",
-    //     libraryExport: "default",
-    //     libraryTarget: 'umd'
-    // }
+    libraryOptions: {
+        library: 'MyLibrary',
+        libraryExport: 'default',
+        libraryTarget: 'umd',
+    },
 };
