@@ -33,6 +33,7 @@ module.exports = merge(common, {
                 parallel: true,
                 sourceMap: true,
                 cache: true,
+                extractComments: false,
             }),
         ],
         splitChunks: {
@@ -42,6 +43,13 @@ module.exports = merge(common, {
                     name: 'vender',
                     priority: 1,
                     test: /node_modules/,
+                    minSize: 0,
+                    minChunks: 1,
+                },
+                vue: {
+                    name: 'vue',
+                    test: /node_modules\/(vue|vuex)/,
+                    priority: 2,
                     minSize: 0,
                     minChunks: 1,
                 },
