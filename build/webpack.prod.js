@@ -12,11 +12,7 @@ const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const common = require('./webpack.common.js');
 const {isShowBundleAnalyzer} = require('../config/index'); // 是否加入打包的依赖分析
 
-const plugins = [
-    new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
-];
+const plugins = [];
 
 if (isShowBundleAnalyzer) {
     plugins.push(new BundleAnalyzerPlugin());

@@ -20,6 +20,7 @@ module.exports = {
             colors: true,
         },
         hot: true,
+        disableHostCheck: true, //webpack4.0 开启热更新
         // https: true,
         open: true,
         publicPath: '/',
@@ -44,7 +45,7 @@ module.exports = {
         from: '',
         to: '',
     },
-    isSplitCSS: true,
+    isSplitCSS: process.env.NODE_ENV === 'production',
     libraryOptions: {
         library: 'MyLibrary',
         libraryExport: 'default',

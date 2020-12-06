@@ -21,7 +21,9 @@ export default {
     computed: {},
     mounted() {
         this.$store.commit('bar/increment');
-        console.log('Bar = ', this.sharedState.count); // -> 1
+        if (process.env.NODE_ENV === 'development') {
+            console.log('Bar = ', this.sharedState.count); // -> 1
+        }
     },
 };
 </script>

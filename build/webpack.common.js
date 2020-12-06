@@ -105,7 +105,7 @@ module.exports = {
                 use: [
                     config.isSplitCSS
                         ? MiniCssExtractPlugin.loader
-                        : 'style-loader',
+                        : 'vue-style-loader',
                     'css-loader',
                 ],
             },
@@ -115,20 +115,19 @@ module.exports = {
                 use: [
                     config.isSplitCSS
                         ? MiniCssExtractPlugin.loader
-                        : 'style-loader',
+                        : 'vue-style-loader',
                     'css-loader',
                     'less-loader',
                 ],
             },
             {
-                test: /\.(png|jpg|gif)$/,
-                exclude: /(node_modules|bower_components)/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {},
-                    },
-                ],
+                test: /\.(gif|jpg|jpeg|png|svg)$/,
+                loader: 'url-loader',
+                include: [dir('src')],
+                options: {
+                    limit: 1024,
+                    name: '[name].[hash].[ext]',
+                },
             },
         ],
     },
