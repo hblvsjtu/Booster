@@ -1,5 +1,7 @@
 module.exports = {
+    root: true,
     parserOptions: {
+        parser: 'babel-eslint', // 解析器，默认使用Espree
         ecmaVersion: 2020,
         sourceType: 'module',
         ecmaFeatures: {
@@ -15,9 +17,15 @@ module.exports = {
         commonjs: true,
         es6: true,
     },
-    extends: ['plugin:vue/essential', 'airbnb-base'],
-    extends: ['airbnb-base'],
-    plugins: ['prettier'],
+    extends: ['plugin:vue/essential'],
+    settings: {
+        'import/resolver': {
+            webpack: {
+                config: './build/webpack.common.js',
+            },
+        },
+    },
+    plugins: ['html', 'vue', 'prettier'],
     rules: {
         'prettier/prettier': 'error',
         semi: ['error', 'always'],
