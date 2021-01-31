@@ -6,9 +6,17 @@
  */
 
 import Vue from 'vue';
-import store from './store';
+import Vuex from 'vuex';
+import VueRouter from 'vue-router';
+import createStore from './store';
+import createRouter from './router';
 import App from './App.vue';
-import router from './lib/route'; // 要告诉 vue 使用 vueRouter
+
+Vue.use(Vuex);
+Vue.use(VueRouter);
+
+const store = createStore();
+const router = createRouter();
 
 export default class MyLibrary {
     constructor(rootId) {
@@ -18,7 +26,7 @@ export default class MyLibrary {
             el: `#${rootId}`,
             router,
             store,
-            render: function render(h) {
+            render(h) {
                 return h(App);
             },
         });

@@ -1,28 +1,35 @@
 <template>
-    <div class="title">Bar</div>
+    <div>
+        <div class="title">{{ type }}</div>
+        <div>{{ detail }}</div>
+    </div>
 </template>
 
 <script>
+import {mapState, mapMutations, mapGetters, mapActions} from 'vuex';
+
+const TYPE = 'Bar';
+
 export default {
     name: 'Bar',
     components: {},
-    props: {
-        // store: {
-        //   type: Object,
-        //   default: {}
-        // }
-    },
+    props: {},
     data() {
-        return {
-            sharedState: this.$store.state.bar,
-        };
+        return {};
     },
-    methods: {},
-    computed: {},
-    mounted() {
-        this.$store.commit('bar/increment');
+    computed: {
+        ...mapState(['count', 'type']),
+        ...mapGetters(['detail']),
+    },
+    methods: {
+        ...mapMutations(['increasment', 'changeType']),
+        ...mapActions(['increasmentAsync', 'changeTypeAsync']),
+    },
+    async mounted() {
+        await this.increasmentAsync();
+        await this.changeTypeAsync(TYPE);
         if (process.env.NODE_ENV === 'development') {
-            console.log('Bar = ', this.sharedState.count); // -> 1
+            console.log('Bar = ', this.detail);
         }
     },
 };

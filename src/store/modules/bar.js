@@ -10,7 +10,7 @@ export default {
         count: 0,
     },
     mutations: {
-        increment: function increment(state) {
+        increment(state) {
             /* eslint-disable-next-line no-param-reassign */
             state.count += 1;
         },
