@@ -8,8 +8,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
-import createStore from './store';
-import createRouter from './router';
+import createStore from './store/index';
+import createRouter from './router/index';
 import App from './App.vue';
 
 Vue.use(Vuex);
@@ -19,7 +19,7 @@ const store = createStore();
 const router = createRouter();
 
 export default class MyLibrary {
-    constructor(rootId) {
+    constructor(rootId: string) {
         /* eslint-disable */
         new Vue({
             /* eslint-disable */

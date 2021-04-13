@@ -30,6 +30,13 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "Bar" */ '../components/Bar.vue'),
     },
+    {
+        path: '/hello',
+        name: 'Hello',
+        props: {name: '拯救大兵瑞恩', initialEnthusiasm: 5},
+        component: () =>
+            import(/* webpackChunkName: "Hello" */ '../components/Hello.vue'),
+    },
 ];
 
 export default () => new VueRouter({routes});

@@ -4,16 +4,18 @@
         <div>{{ detail }}</div>
         <button type="button" @click="handleButtonClick">ListBar</button>
         <!-- 对应的组件内容渲染到router-view中 -->
-        <router-view></router-view>
+        <router-view />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import {mapState, mapMutations, mapGetters, mapActions} from 'vuex';
+import {Route} from 'vue-router'; // 检测规则
 
 const TYPE = 'List';
 
-export default {
+export default Vue.extend({
     name: 'List',
     components: {},
     props: {},
@@ -29,7 +31,9 @@ export default {
         ...mapActions(['increasmentAsync', 'changeTypeAsync']),
         handleButtonClick() {
             if (this.$route.name === 'List') {
-                this.$router.push({
+                /* eslint-disable */
+                (this['$route'] as any).push({
+                    /* eslint-disable */
                     name: 'ListBar',
                     query: {userId: 123},
                 });
@@ -43,19 +47,19 @@ export default {
             console.log('List = ', this.detail);
         }
     },
-    beforeRouteEnter(to, from, next) {
+    beforeRouteEnter(to: Route, from: Route, next: () => void): void {
         console.log('beforeRouterEnter');
         next();
     },
-    beforeRouteUpdate(to, from, next) {
+    beforeRouteUpdate(to: Route, from: Route, next: () => void): void {
         console.log('beforeRouterUpdate');
         next();
     },
-    beforeRouteLeave(to, from, next) {
+    beforeRouteLeave(to: Route, from: Route, next: () => void): void {
         console.log('beforeRouterLeave');
         next();
     },
-};
+});
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>

@@ -5,12 +5,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import {mapState, mapMutations, mapGetters, mapActions} from 'vuex';
 
 const TYPE = 'Bar';
 
-export default {
+export default Vue.extend({
     name: 'Bar',
     components: {},
     props: {},
@@ -32,7 +33,7 @@ export default {
             console.log('Bar = ', this.detail);
         }
     },
-};
+});
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>

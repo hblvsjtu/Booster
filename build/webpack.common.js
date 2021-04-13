@@ -12,6 +12,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyFormatter = require('eslint-friendly-formatter');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const config = require('../config/index');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
@@ -24,6 +25,12 @@ const plugins = [
         inject: 'body',
     }),
     new VueLoaderPlugin(),
+    new ESLintPlugin({
+        extensions: ['js', 'vue', 'ts'],
+        exclude: 'node_modules',
+        formatter: FriendlyFormatter,
+        fix: true,
+    }),
 ];
 
 if (config.staticAssertsPath.from) {
@@ -42,8 +49,8 @@ if (config.isSplitCSS) {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: '[name].[hash].css',
-            chunkFilename: '[name].[hash].chunk.css',
+            filename: '[name].[hash:8].css',
+            chunkFilename: '[name].[hash:8].chunk.css',
         })
     );
 }
@@ -56,18 +63,18 @@ function dir(myPath) {
 
 module.exports = {
     entry: {
-        booster: './src/main.js',
+        booster: './src/main',
     },
     output: {
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].[hash].chunk.js',
+        filename: '[name].[hash:8].js',
+        chunkFilename: '[name].[hash:8].chunk.js',
         path: dir('dist'),
         ...(config.libraryOptions || {}),
     },
     resolve: {
         // 给vue模板的提供编译支持
         mainFields: ['jsnext:main', 'browser', 'main'],
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.ts', '.js', '.vue', '.json'],
         alias: {
             // vue$: 'vue/dist/vue.min.js',
             '@': dir('src'),
@@ -76,28 +83,26 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-                enforce: 'pre',
-                test: /\.(js|vue)$/,
-                exclude: /node_modules/,
-                loader: 'eslint-loader',
-                options: {
-                    formatter: FriendlyFormatter,
-                    fix: true,
-                },
-            },
+            // {
+            //     enforce: 'pre',
+            // test: /\.(js|vue)$/,
+            // exclude: /node_modules/,
+            //     loader: 'eslint-loader',
+            //     options: {
+            //         formatter: FriendlyFormatter,
+            //         fix: true,
+            //     },
+            // },
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
             },
             {
-                test: /\.js$/,
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
                 exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                    },
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
                 },
             },
             {
